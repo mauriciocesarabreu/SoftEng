@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    int i;
+    int movimentos = 5;
+
+    printf("Movimento da Torre:\n");
+    for(i = 0; i < movimentos; i++) {
+        printf("Direita\n");
+    }
+
+    printf("\n");
+
+    int casas_bispo = 5;
+    int bispo = 0;
+    printf("Movimento do Bispo:\n");
+    while(bispo < casas_bispo) {
+        printf("Cima Direita\n");
+        bispo++;
+    }
+
+    printf("\n");
+
+    int casas_rainha = 8;
+    int rainha = 0;
+    printf("Movimento da Rainha:\n");
+    do {
+        printf("Esquerda\n");
+        rainha++;
+    } while(rainha < casas_rainha);
+
+    return 0;
+}
