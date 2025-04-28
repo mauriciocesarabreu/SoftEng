@@ -1,155 +1,100 @@
 #include <stdio.h>
-#include <string.h>
-
-// Estrutura para armazenar os dados dos carros
-typedef struct {
-    char name[30];
-    int horsepower;
-    int topspeed;
-    int acceleration; // 0 a 100 km/h em segundos
-} Car;
-
-// Menu principal
-void showMenu() {
-    printf("\n--- SUPER TRUNFO: CARROS ---\n");
-    printf("1. Comparar um atributo\n");
-    printf("2. Comparar dois atributos\n");
-    printf("3. Sair\n");
-    printf("Escolha uma opção: ");
-}
-
-// Exibe atributos disponíveis
-void showAttributes() {
-    printf("\nAtributos disponíveis:\n");
-    printf("- horsepower\n");
-    printf("- topspeed\n");
-    printf("- acceleration\n");
-}
-
-// Desafio 1: Comparar um atributo
-void compareSingleAttribute(Car c1, Car c2) {
-    char attribute[20];
-    showAttributes();
-    printf("Digite o atributo para comparar: ");
-    scanf("%s", attribute);
-
-    if (strcmp(attribute, "horsepower") == 0) {
-        printf("\n%s: %d HP\n", c1.name, c1.horsepower);
-        printf("%s: %d HP\n", c2.name, c2.horsepower);
-
-        if (c1.horsepower > c2.horsepower)
-            printf("🏆 %s venceu!\n", c1.name);
-        else if (c2.horsepower > c1.horsepower)
-            printf("🏆 %s venceu!\n", c2.name);
-        else
-            printf("⚖️ Empate!\n");
-
-    } else if (strcmp(attribute, "topspeed") == 0) {
-        printf("\n%s: %d km/h\n", c1.name, c1.topspeed);
-        printf("%s: %d km/h\n", c2.name, c2.topspeed);
-
-        if (c1.topspeed > c2.topspeed)
-            printf("🏆 %s venceu!\n", c1.name);
-        else if (c2.topspeed > c1.topspeed)
-            printf("🏆 %s venceu!\n", c2.name);
-        else
-            printf("⚖️ Empate!\n");
-
-    } else if (strcmp(attribute, "acceleration") == 0) {
-        printf("\n%s: 0–100 km/h em %d s\n", c1.name, c1.acceleration);
-        printf("%s: 0–100 km/h em %d s\n", c2.name, c2.acceleration);
-
-        if (c1.acceleration < c2.acceleration) // menor tempo é melhor
-            printf("🏆 %s venceu!\n", c1.name);
-        else if (c2.acceleration < c1.acceleration)
-            printf("🏆 %s venceu!\n", c2.name);
-        else
-            printf("⚖️ Empate!\n");
-
-    } else {
-        printf("❌ Atributo inválido!\n");
-    }
-}
-
-// Desafio 2 e 3: Comparar dois atributos
-void compareTwoAttributes(Car c1, Car c2) {
-    char attr1[20], attr2[20];
-    int score1 = 0, score2 = 0;
-
-    showAttributes();
-    printf("Digite o primeiro atributo: ");
-    scanf("%s", attr1);
-    printf("Digite o segundo atributo: ");
-    scanf("%s", attr2);
-
-    // Validação
-    if ((strcmp(attr1, "horsepower") == 0 || strcmp(attr1, "topspeed") == 0 || strcmp(attr1, "acceleration") == 0) &&
-        (strcmp(attr2, "horsepower") == 0 || strcmp(attr2, "topspeed") == 0 || strcmp(attr2, "acceleration") == 0)) {
-
-        // Primeiro atributo
-        if (strcmp(attr1, "horsepower") == 0) {
-            score1 += c1.horsepower;
-            score2 += c2.horsepower;
-        } else if (strcmp(attr1, "topspeed") == 0) {
-            score1 += c1.topspeed;
-            score2 += c2.topspeed;
-        } else if (strcmp(attr1, "acceleration") == 0) {
-            score1 += (100 - c1.acceleration); // quanto menor, melhor
-            score2 += (100 - c2.acceleration);
-        }
-
-        // Segundo atributo
-        if (strcmp(attr2, "horsepower") == 0) {
-            score1 += c1.horsepower;
-            score2 += c2.horsepower;
-        } else if (strcmp(attr2, "topspeed") == 0) {
-            score1 += c1.topspeed;
-            score2 += c2.topspeed;
-        } else if (strcmp(attr2, "acceleration") == 0) {
-            score1 += (100 - c1.acceleration);
-            score2 += (100 - c2.acceleration);
-        }
-
-        printf("\nPontuação total:\n");
-        printf("%s: %d\n", c1.name, score1);
-        printf("%s: %d\n", c2.name, score2);
-
-        // Ternário: Desafio 3
-        printf("🏁 Resultado: ");
-        (score1 > score2) ? printf("%s venceu!\n", c1.name) :
-        (score2 > score1) ? printf("%s venceu!\n", c2.name) :
-                            printf("Empate!\n");
-
-    } else {
-        printf("❌ Um ou mais atributos inválidos!\n");
-    }
-}
 
 int main() {
-    // Dois carros fixos
-    Car car1 = {"Lamborghini Huracan", 631, 325, 3};
-    Car car2 = {"Ferrari 488 GTB", 661, 330, 2};
+    // Variáveis da primeira carta
+    char est1;
+    char cod1[4];
+    char cidade1[50];
+    int pop1, pt1;
+    float area1, pib1;
+    float dens1, pcap1;
 
-    int option;
+    // Variáveis da segunda carta
+    char est2;
+    char cod2[4];
+    char cidade2[50];
+    int pop2, pt2;
+    float area2, pib2;
+    float dens2, pcap2;
 
-    do {
-        showMenu();
-        scanf("%d", &option);
+    // Leitura da primeira carta
+    printf("Informe os dados da primeira cidade:\n");
 
-        switch (option) {
-            case 1:
-                compareSingleAttribute(car1, car2);
-                break;
-            case 2:
-                compareTwoAttributes(car1, car2);
-                break;
-            case 3:
-                printf("Saindo do jogo. 👋\n");
-                break;
-            default:
-                printf("❌ Opção inválida. Tente novamente.\n");
-        }
-    } while (option != 3);
+    printf("Estado: ");
+    scanf(" %c", &est1);
+
+    printf("Codigo: ");
+    scanf("%s", cod1);
+
+    printf("Nome da cidade: ");
+    scanf(" %[^\n]", cidade1);
+
+    printf("Populacao: ");
+    scanf("%d", &pop1);
+
+    printf("Area (km²): ");
+    scanf("%f", &area1);
+
+    printf("PIB (em bilhoes): ");
+    scanf("%f", &pib1);
+
+    printf("Pontos turisticos: ");
+    scanf("%d", &pt1);
+
+    // Leitura da segunda carta
+    printf("\nInforme os dados da segunda cidade:\n");
+
+    printf("Estado: ");
+    scanf(" %c", &est2);
+
+    printf("Codigo: ");
+    scanf("%s", cod2);
+
+    printf("Nome da cidade: ");
+    scanf(" %[^\n]", cidade2);
+
+    printf("Populacao: ");
+    scanf("%d", &pop2);
+
+    printf("Area (km²): ");
+    scanf("%f", &area2);
+
+    printf("PIB (em bilhoes): ");
+    scanf("%f", &pib2);
+
+    printf("Pontos turisticos: ");
+    scanf("%d", &pt2);
+
+    // Cálculos
+    dens1 = pop1 / area1;
+    pcap1 = (pib1 * 1000000000) / pop1;
+
+    dens2 = pop2 / area2;
+    pcap2 = (pib2 * 1000000000) / pop2;
+
+    // Exibindo dados da primeira carta
+    printf("\nCarta 1\n");
+    printf("Estado: %c\n", est1);
+    printf("Codigo: %s\n", cod1);
+    printf("Cidade: %s\n", cidade1);
+    printf("Populacao: %d\n", pop1);
+    printf("Area: %.2f km²\n", area1);
+    printf("PIB: %.2f bilhoes\n", pib1);
+    printf("Pontos Turisticos: %d\n", pt1);
+    printf("Densidade Populacional: %.2f hab/km²\n", dens1);
+    printf("PIB per Capita: %.2f reais\n", pcap1);
+
+    // Exibindo dados da segunda carta
+    printf("\nCarta 2\n");
+    printf("Estado: %c\n", est2);
+    printf("Codigo: %s\n", cod2);
+    printf("Cidade: %s\n", cidade2);
+    printf("Populacao: %d\n", pop2);
+    printf("Area: %.2f km²\n", area2);
+    printf("PIB: %.2f bilhoes\n", pib2);
+    printf("Pontos Turisticos: %d\n", pt2);
+    printf("Densidade Populacional: %.2f hab/km²\n", dens2);
+    printf("PIB per Capita: %.2f reais\n", pcap2);
 
     return 0;
 }
