@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() {
+    // Criando o tabuleiro 10x10 e preenchendo com 0 (água)
+    int tabuleiro[10][10];
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            tabuleiro[i][j] = 0;
+        }
+    }
+
+    // Tamanho fixo dos navios
+    int tamanho_navio = 3;
+
+    // Coordenadas para o navio horizontal (linha 2, coluna 4)
+    int linhaH = 2;
+    int colunaH = 4;
+
+    // Coordenadas para o navio vertical (linha 5, coluna 7)
+    int linhaV = 5;
+    int colunaV = 7;
+
+    // Verificando se os navios cabem no tabuleiro
+    if (colunaH + tamanho_navio <= 10 && linhaV + tamanho_navio <= 10) {
+        
+        // Colocando o navio horizontal no tabuleiro
+        for (int i = 0; i < tamanho_navio; i++) {
+            tabuleiro[linhaH][colunaH + i] = 3;
+        }
+
+        // Colocando o navio vertical no tabuleiro
+        for (int i = 0; i < tamanho_navio; i++) {
+            // Só posiciona se a célula estiver livre (sem outro navio)
+            if (tabuleiro[linhaV + i][colunaV] == 0) {
+                tabuleiro[linhaV + i][colunaV] = 3;
+            } else {
+                printf("Os navios não podem se sobrepor!\n");
+                return 1;
+            }
+        }
+
+        // Mostrando o tabuleiro
+        printf("Tabuleiro:\n");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                printf("%d ", tabuleiro[i][j]);
+            }
+            printf("\n");
+        }
+
+    } else {
+        printf("Um dos navios não cabe no tabuleiro!\n");
+    }
+
+    return 0;
+}
